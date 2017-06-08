@@ -1,5 +1,7 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Manager.aspx.cs" Inherits="Manager" %>
 
+<%@ Register assembly="System.Web.DataVisualization, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" namespace="System.Web.UI.DataVisualization.Charting" tagprefix="asp" %>
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -8,17 +10,14 @@
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-		<asp:SqlDataSource ID="SqlDataSourceRegistration" runat="server" ConnectionString="<%$ ConnectionStrings:RegistrationConnectionString %>" ProviderName="<%$ ConnectionStrings:RegistrationConnectionString.ProviderName %>" SelectCommand="SELECT * FROM [UserData]"></asp:SqlDataSource>
+    <div style="height: 481px">
+		<asp:SqlDataSource ID="SqlDataSourceRegistration" runat="server" ConnectionString="<%$ ConnectionStrings:RegistrationConnectionString %>" SelectCommand="SELECT * FROM [NameData]"></asp:SqlDataSource>
 		<asp:GridView ID="GridView1" runat="server" AllowPaging="True" AllowSorting="True" AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="None" BorderWidth="1px" CellPadding="3" DataSourceID="SqlDataSourceRegistration" GridLines="Vertical">
 			<AlternatingRowStyle BackColor="#DCDCDC" />
 			<Columns>
-				<asp:CommandField ShowSelectButton="True" />
-				<asp:BoundField DataField="ID" HeaderText="ID" SortExpression="ID" />
-				<asp:BoundField DataField="Username" HeaderText="Username" SortExpression="Username" />
-				<asp:BoundField DataField="Email" HeaderText="Email" SortExpression="Email" />
-				<asp:BoundField DataField="Password" HeaderText="Password" SortExpression="Password" />
-				<asp:BoundField DataField="Country" HeaderText="Country" SortExpression="Country" />
+				<asp:BoundField DataField="NameID" HeaderText="NameID" SortExpression="NameID" />
+				<asp:BoundField DataField="Name" HeaderText="Name" SortExpression="Name" />
+				<asp:BoundField DataField="Age" HeaderText="Age" SortExpression="Age" />
 			</Columns>
 			<FooterStyle BackColor="#CCCCCC" ForeColor="Black" />
 			<HeaderStyle BackColor="#000084" Font-Bold="True" ForeColor="White" />
@@ -30,6 +29,17 @@
 			<SortedDescendingCellStyle BackColor="#CAC9C9" />
 			<SortedDescendingHeaderStyle BackColor="#000065" />
 		</asp:GridView>
+    	<br />
+		<asp:Chart ID="Chart1" runat="server" DataSourceID="SqlDataSourceRegistration" Height="180px" Width="402px">
+			<series>
+				<asp:Series ChartType="SplineArea" Name="Series1" XValueMember="Name" YValueMembers="Age">
+				</asp:Series>
+			</series>
+			<chartareas>
+				<asp:ChartArea Name="ChartArea1">
+				</asp:ChartArea>
+			</chartareas>
+		</asp:Chart>
     </div>
     </form>
 </body>
